@@ -42,11 +42,6 @@ def save_uploaded_file(uploaded_file):
     return file_path
 
 
-set_background(
-    r"C:\Users\user\OneDrive\Рабочий стол\Фото\Сочи2023-20230809T090702Z-001\Сочи2023\IMG_5456.JPG"
-)
-
-
 st.write(
     """
 # 3D reconstruction
