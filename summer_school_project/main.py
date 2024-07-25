@@ -7,24 +7,29 @@ from gradio_client import Client, file
 import pyvista as pv
 import streamlit as st
 from stpyvista import stpyvista
+# import requests
 
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+def get_base64_of_bin_file(url: str) -> str:
+    """Преобразует изображение из URL в строку base64."""
+    response = requests.get(url)
+    binary_data = response.content
+    return base64.b64encode(binary_data).decode('utf-8')
 
 
 
-def set_background(png_file):
-    bin_str = get_base64_of_bin_file(png_file)
-    page_bg_img = '''
+def set_background(image_url: str) -> None:
+
+    bin_str = get_base64_of_bin_file(image_url)
+    
+    page_bg_img = f'''
     <style>
-    .stApp {
-    background-image: url("data:image/png;base64,%s");
-    background-size: cover;
-    }
+    .stApp {{
+        background-image: url("data:image/jpeg;base64,{bin_str}");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }}
     </style>
-    ''' % bin_str
+    '''
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
 def save_uploaded_file(uploaded_file):
@@ -37,20 +42,20 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.read())
     return file_path
 
-
-set_background(r"C:\Users\user\OneDrive\Рабочий стол\Фото\Сочи2023-20230809T090702Z-001\Сочи2023\IMG_5456.JPG")
+st.set_page_config(
+    layout="wide"
+)
+# set_background("https://www.studyinchina.com.my/web/uploads/HIT/Hit1.jpg")
 
 
 st.write("""
 # 3D reconstruction
 """)
 
-uploaded_file = st.file_uploader("Выберите изображение", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Select an image", type=["jpg", "jpeg", "png"])
 if uploaded_file is not None:
     file_path = save_uploaded_file(uploaded_file)
 
-
-client = Client("pengHTYX/Era3D_MV_demo")
 
 def pil_resize(image: Image.Image, 
                base_width: int = 300) -> Image.Image:
@@ -62,19 +67,25 @@ def pil_resize(image: Image.Image,
 
 
 
-def stable_picture(uploaded_file) -> Tuple:
-    
+def stable_picture(uploaded_file, client) -> Tuple:
     if uploaded_file is not None:
-
-        result = client.predict(
-		single_image=file(file_path),
-		guidance_scale=3,
-		steps=30,
-		seed=600,
-		crop_size=420,
-		chk_group=["Write Results"],
-		api_name="/partial_1"
-)
+        try:
+            result = client.predict(
+                single_image=file(file_path),
+                guidance_scale=3,
+                steps=30,
+                seed=600,
+                crop_size=420,
+                chk_group=["Write Results"],
+                api_name="/partial_1"
+            )
+            return result
+        except Exception as e:
+            if "exceeded your GPU quota" in str(e):
+                st.error("You have exceeded your GPU quota. Please try again later.")
+            else:
+                st.error(f"An unexpected error occurred: {e}")
+            return None
     return result
 
 
@@ -114,10 +125,11 @@ def show_3d_model():
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     image = pil_resize(image, 200)
-    st.image(image, caption='Загруженное изображение')
+    st.image(image, caption='Uploaded image')
 
+client = Client("pengHTYX/Era3D_MV_demo")
 show_created_pic = st.button("Pic to 3D")
 if show_created_pic:
-    new_pic = stable_picture(image)
+    new_pic = stable_picture(image, client)
     show_stable_picture(new_pic)
     show_3d_model()
