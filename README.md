@@ -4,11 +4,7 @@ This is a report on a 2nd project "Single-image 3D Multiview Reconstruction".
 
 ## Installation Guide
 
-Make sure to enter your username inside run.sh
-
-```
-docker run -it --gpus all -v summer_school_project:/workspace/ -v /home/<YOUR-USERNAME>/.cache/:/home/user/.cache/ -p 7007:7007 -p 8501:8501 --rm --ipc=host 3d-reconstruction
-```
+❗ Make sure to enter your username in .env file
 
 ```
 docker build -t 3d-reconstruction .
