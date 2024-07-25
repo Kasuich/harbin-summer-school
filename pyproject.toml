@@ -6,13 +6,16 @@ authors = ["kasuich <kasui3108@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10.12"
 streamlit = "^1.36.0"
 gradio-client = "^1.1.1"
 stpyvista = "^0.0.19"
 bokeh = "^3.5.0"
 panel = "^1.4.4"
 watchfiles = "^0.22.0"
+pillow = "^10.4.0"
+pyvista = "^0.44.1"
+numpy = "1.26.4"
 
 
 [build-system]
