@@ -13,6 +13,8 @@ stpyvista = "^0.0.19"
 bokeh = "^3.5.0"
 panel = "^1.4.4"
 watchfiles = "^0.22.0"
+pillow = "^10.4.0"
+pyvista = "^0.44.1"
 
 
 [build-system]
