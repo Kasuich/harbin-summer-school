@@ -1,4 +1,5 @@
 import base64
+import enum
 import os
 from typing import Tuple
 
@@ -7,6 +8,16 @@ import streamlit as st
 from gradio_client import Client, file
 from PIL import Image
 from stpyvista import stpyvista
+
+
+class STATES(enum.Enum):
+    PLACEHOLDER = enum.auto()
+    UPLOAD = enum.auto()
+    PROCESS = enum.auto()
+    VIEW = enum.auto()
+
+
+st.session_state["state"] = STATES.PLACEHOLDER
 
 
 def main():
@@ -43,13 +54,11 @@ def main():
 
     st.write(
         """
-    # 3D reconstruction
+    # Single Image Novel View Synthesis via Era3D
     """
     )
 
-    uploaded_file = st.file_uploader(
-        "Выберите изображение", type=["jpg", "jpeg", "png"]
-    )
+    uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         file_path = save_uploaded_file(uploaded_file)
 
@@ -111,13 +120,13 @@ def main():
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         image = pil_resize(image, 200)
-        st.image(image, caption="Загруженное изображение")
+        st.image(image, caption="Uploaded Image")
 
-    show_created_pic = st.button("Pic to 3D")
+    show_created_pic = st.button("Generate Novel Views")
     if show_created_pic:
         new_pic = stable_picture(image)
         show_stable_picture(new_pic)
-        show_3d_model()
+        st.session_state["state"] = STATES.VIEW
 
 
 if __name__ == "__main__":
