@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "summer-school-project"
+version = "0.1.0"
+description = ""
+authors = ["kasuich <kasui3108@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.36.0"
+gradio-client = "^1.1.1"
+stpyvista = "^0.0.19"
+bokeh = "^3.5.0"
+panel = "^1.4.4"
+watchfiles = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
