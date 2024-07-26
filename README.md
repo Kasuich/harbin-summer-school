@@ -40,7 +40,7 @@ GUI Interface will be exposed at 8501 port
 ### Challenges 🫠:
 - 🏋️‍♂️ Lack of available CUDA memory
 
-## ![Interface](harbin-summer-school/imgs/1.png)
+## ![Interface](harbin-summer-school/imgs/1.png](https://github.com/Kasuich/harbin-summer-school/blob/main/imgs/1.png)
 
 ## Team Members:
 - <i>Roman Shinkarenko</i>
