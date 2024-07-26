@@ -24,6 +24,9 @@ bash run.sh
 
 GUI Interface will be exposed at 8501 port
 
+## Our work
+## ![Interface](https://github.com/Kasuich/harbin-summer-school/blob/main/imgs/1.png)
+
 ## Outcomes
 ### Done:
  - ✅ Overviewing research of a SOTA approches
@@ -37,10 +40,16 @@ GUI Interface will be exposed at 8501 port
  - ➡️ Separate the model from the GUI Interface service
  - ➡️ 3D Reconstruction using Gaussian Splatting
 
-### Challenges 🫠:
-- 🏋️‍♂️ Lack of available CUDA memory
+## Problems
+* **Limited hardware**
+The original model is trained on 16xH800 (each 80 GB) for approximately 30 hours.
+The inference requires considerably more than 6 GB of CUDA memory.
+Due to these limitations we can only implement our improvements on top of the output of model (accessed via API).
 
-## ![Interface](https://github.com/Kasuich/harbin-summer-school/blob/main/imgs/1.png)
+* **Camera parameters estimation**
+3D reconstruction models requires camera parameters to be known
+It is essential to have an accurate method to estimate focal length and camera position
+We decided to use COLMAP for camera parameters estimation.
 
 ## Team Members:
 - <i>Roman Shinkarenko</i>
