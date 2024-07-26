@@ -41,12 +41,12 @@ GUI Interface will be exposed at 8501 port
  - ➡️ 3D Reconstruction using Gaussian Splatting
 
 ## Problems
-* **Limited hardware**
+* **Limited hardware**  
 The original model is trained on 16xH800 (each 80 GB) for approximately 30 hours.
 The inference requires considerably more than 6 GB of CUDA memory.
 Due to these limitations we can only implement our improvements on top of the output of model (accessed via API).
 
-* **Camera parameters estimation**
+* **Camera parameters estimation**  
 3D reconstruction models requires camera parameters to be known
 It is essential to have an accurate method to estimate focal length and camera position
 We decided to use COLMAP for camera parameters estimation.
