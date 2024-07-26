@@ -17,11 +17,11 @@ GUI Interface will be exposed at 8501 port
 Era3D, a novel multiview diffusion method that generates high-resolution multiview images from a single-view image.
 After studying [this article](https://arxiv.org/pdf/2405.11616), we have highlighted several points about Era3D:
 
-* **Camera positioning** 
+* **Camera positioning**  
 Orthogonal cameras and viewpoint on an elevation of 0 degrees. This assumption allows them significantly improve computational complexity and eliminates distortion.
-* **Focal length rectification** 
+* **Focal length rectification**   
 New regression and condition scheme and utilization of the low-level feature maps of UNet at each denoising step to predict camera information.
-* **Row-wise multiview attention**
+* **Row-wise multiview attention**  
 Row-wise multiview attention that enabled them to decrease computational costs for high-resolution images
 
 ## Outcomes
