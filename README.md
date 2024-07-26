@@ -44,6 +44,5 @@ Row-wise multiview attention that enabled them to decrease computational costs f
 - <i>Roman Shinkarenko</i>
 - <i>Nikolai Aleksandrov</i>
 - <i>Sergey Martynov</i>
-- <i>Nikolay Aleksandrov</i>
 - <i>Mariia Ulianova</i>
 - <i>Yaroslav Romanenko</i>
